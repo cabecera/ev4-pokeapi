@@ -8,12 +8,34 @@ const PokemonFetcher = () => {
   const [tipoSeleccionado, setTipoSeleccionado] = useState('');
   const [tiposDisponibles, setTiposDisponibles] = useState([]);
 
-  // Lista de tipos de Pokémon disponibles
+  // Lista de tipos de Pokémon disponibles (en inglés para las solicitudes a la API)
   const tiposPokemon = [
     'normal', 'fire', 'water', 'electric', 'grass', 'ice', 'fighting', 'poison',
     'ground', 'flying', 'psychic', 'bug', 'rock', 'ghost', 'dragon', 'dark',
     'steel', 'fairy'
   ];
+
+  // Mapeo de tipos de inglés a español para mostrar en la interfaz
+  const tiposEnEspanol = {
+    'normal': 'Normal',
+    'fire': 'Fuego',
+    'water': 'Agua',
+    'electric': 'Eléctrico',
+    'grass': 'Planta',
+    'ice': 'Hielo',
+    'fighting': 'Lucha',
+    'poison': 'Veneno',
+    'ground': 'Tierra',
+    'flying': 'Volador',
+    'psychic': 'Psíquico',
+    'bug': 'Bicho',
+    'rock': 'Roca',
+    'ghost': 'Fantasma',
+    'dragon': 'Dragón',
+    'dark': 'Siniestro',
+    'steel': 'Acero',
+    'fairy': 'Hada'
+  };
 
   // Cargar tipos disponibles al montar el componente
   useEffect(() => {
@@ -114,6 +136,11 @@ const PokemonFetcher = () => {
     }
   };
 
+  // Función para convertir tipos de inglés a español
+  const convertirTiposAEspanol = (tipos) => {
+    return tipos.map(tipo => tiposEnEspanol[tipo] || tipo.charAt(0).toUpperCase() + tipo.slice(1));
+  };
+
   // Cargar Pokémon aleatorios al montar el componente
   useEffect(() => {
     fetchPokemonesAleatorios();
@@ -143,7 +170,7 @@ const PokemonFetcher = () => {
           <option value="">Todos los tipos (Aleatorios)</option>
           {tiposDisponibles.map(tipo => (
             <option key={tipo} value={tipo}>
-              {tipo.charAt(0).toUpperCase() + tipo.slice(1)}
+              {tiposEnEspanol[tipo]}
             </option>
           ))}
         </select>
@@ -152,7 +179,7 @@ const PokemonFetcher = () => {
       {/* Título dinámico */}
       <h3>
         {tipoSeleccionado
-          ? `Pokémon de tipo ${tipoSeleccionado.charAt(0).toUpperCase() + tipoSeleccionado.slice(1)}`
+          ? `Pokémon de tipo ${tiposEnEspanol[tipoSeleccionado]}`
           : 'Tus 4 Pokémon Aleatorios'
         }
       </h3>
@@ -163,7 +190,7 @@ const PokemonFetcher = () => {
             <h3>{pokemon.nombre.charAt(0).toUpperCase() + pokemon.nombre.slice(1)}</h3>
             <img src={pokemon.imagen} alt={pokemon.nombre} />
             <p>
-              <strong>Tipos:</strong> {pokemon.tipos.map(type => type.charAt(0).toUpperCase() + type.slice(1)).join(', ')}
+              <strong>Tipos:</strong> {convertirTiposAEspanol(pokemon.tipos).join(', ')}
             </p>
           </div>
         ))}

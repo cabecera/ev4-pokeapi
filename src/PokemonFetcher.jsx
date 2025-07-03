@@ -141,6 +141,16 @@ const PokemonFetcher = () => {
     return tipos.map(tipo => tiposEnEspanol[tipo] || tipo.charAt(0).toUpperCase() + tipo.slice(1));
   };
 
+  // Función para obtener la clase CSS del tipo
+  const obtenerClaseTipo = (tipo) => {
+    const tipoEspanol = tiposEnEspanol[tipo] || tipo;
+    const claseTipo = tipoEspanol.toLowerCase().replace(/[áéíóú]/g, function(match) {
+      const acentos = { 'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u' };
+      return acentos[match];
+    });
+    return `tipo-${claseTipo}`;
+  };
+
   // Cargar Pokémon aleatorios al montar el componente
   useEffect(() => {
     fetchPokemonesAleatorios();
@@ -190,8 +200,18 @@ const PokemonFetcher = () => {
             <h3>{pokemon.nombre.charAt(0).toUpperCase() + pokemon.nombre.slice(1)}</h3>
             <img src={pokemon.imagen} alt={pokemon.nombre} />
             <p>
-              <strong>Tipos:</strong> {convertirTiposAEspanol(pokemon.tipos).join(', ')}
+              <strong>Tipos:</strong>
             </p>
+            <div className="tipos-container">
+              {pokemon.tipos.map(tipo => (
+                <span
+                  key={tipo}
+                  className={`tipo-badge ${obtenerClaseTipo(tipo)}`}
+                >
+                  {tiposEnEspanol[tipo]}
+                </span>
+              ))}
+            </div>
           </div>
         ))}
       </div>

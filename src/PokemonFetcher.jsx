@@ -166,11 +166,13 @@ const PokemonFetcher = () => {
 
   return (
     <div className='pokemon-container'>
-      <h2>Pokémon Explorer</h2>
+      <h2><img id="pokemon-logo" src="src\assets\International_Pokémon_logo.svg.png" alt="Pokémon Logo" /></h2>
 
       {/* Selector de tipo */}
       <div className="filtro-tipo">
         <label htmlFor="tipo-select">Filtrar por tipo: </label>
+        <img id="icono-pokemon" src="src/assets/pokemon-4657023_1280.webp" alt="icono-pokemon" />
+
         <select
           id="tipo-select"
           value={tipoSeleccionado}
@@ -189,7 +191,20 @@ const PokemonFetcher = () => {
       {/* Título dinámico */}
       <h3>
         {tipoSeleccionado
-          ? `Pokémon de tipo ${tiposEnEspanol[tipoSeleccionado]}`
+          ? (
+            <>
+              Pokémon de tipo {tiposEnEspanol[tipoSeleccionado]}
+              {tipoSeleccionado && (
+                <img
+                // seleccionar el icono de tipo de pokemon de la carpeta assets/tipos-pokemon
+                  src={`src/assets/tipos-pokemon/Icon_${tiposEnEspanol[tipoSeleccionado]}.webp`}
+                  alt={`icono tipo ${tiposEnEspanol[tipoSeleccionado]}`}
+                  className="icono-tipo-titulo"
+                  style={{ marginLeft: '10px', width: '2em', height: '2em', verticalAlign: 'middle' }}
+                />
+              )}
+            </>
+          )
           : 'Tus 4 Pokémon Aleatorios'
         }
       </h3>

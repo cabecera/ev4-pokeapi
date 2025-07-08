@@ -166,12 +166,12 @@ const PokemonFetcher = () => {
 
   return (
     <div className='pokemon-container'>
-      <h2><img id="pokemon-logo" src="src\assets\International_Pokémon_logo.svg.png" alt="Pokémon Logo" /></h2>
+      <h2><img id="pokemon-logo" src="./assets/International_Pokémon_logo.svg.png" alt="Pokémon Logo" /></h2>
 
       {/* Selector de tipo */}
       <div className="filtro-tipo">
         <label htmlFor="tipo-select">Filtrar por tipo: </label>
-        <img id="icono-pokemon" src="src/assets/pokemon-4657023_1280.webp" alt="icono-pokemon" />
+        <img id="icono-pokemon" src="./assets/pokemon-4657023_1280.webp" alt="icono-pokemon" />
 
         <select
           id="tipo-select"
@@ -197,7 +197,7 @@ const PokemonFetcher = () => {
               {tipoSeleccionado && (
                 <img
                 // seleccionar el icono de tipo de pokemon de la carpeta assets/tipos-pokemon
-                  src={`src/assets/tipos-pokemon/Icon_${tiposEnEspanol[tipoSeleccionado]}.webp`}
+                  src={`../assets/tipos-pokemon/Icon_${tiposEnEspanol[tipoSeleccionado]}.webp`}
                   alt={`icono tipo ${tiposEnEspanol[tipoSeleccionado]}`}
                   className="icono-tipo-titulo"
                   style={{ marginLeft: '10px', width: '2em', height: '2em', verticalAlign: 'middle' }}

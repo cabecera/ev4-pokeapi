@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './PokemonFetcher.css'; // Opcional: para estilos básicos
+import pokemonLogo from './assets/International_Pokémon_logo.svg.png';
+import pokemonIcon from './assets/pokemon-4657023_1280.webp';
 
 const PokemonFetcher = () => {
   const [pokemones, setPokemones] = useState([]);
@@ -151,6 +153,18 @@ const PokemonFetcher = () => {
     return `tipo-${claseTipo}`;
   };
 
+  // Función para obtener la URL del icono de tipo
+  const obtenerIconoTipo = (tipo) => {
+    const tipoEspanol = tiposEnEspanol[tipo] || tipo;
+    try {
+      // Importación dinámica de los iconos de tipos
+      return new URL(`./assets/tipos-pokemon/Icon_${tipoEspanol}.webp`, import.meta.url).href;
+    } catch (error) {
+      console.warn(`No se pudo cargar el icono para el tipo: ${tipoEspanol}`);
+      return '';
+    }
+  };
+
   // Cargar Pokémon aleatorios al montar el componente
   useEffect(() => {
     fetchPokemonesAleatorios();
@@ -166,12 +180,12 @@ const PokemonFetcher = () => {
 
   return (
     <div className='pokemon-container'>
-      <h2><img id="pokemon-logo" src="./assets/International_Pokémon_logo.svg.png" alt="Pokémon Logo" /></h2>
+      <h2><img id="pokemon-logo" src={pokemonLogo} alt="Pokémon Logo" /></h2>
 
       {/* Selector de tipo */}
       <div className="filtro-tipo">
         <label htmlFor="tipo-select">Filtrar por tipo: </label>
-        <img id="icono-pokemon" src="./assets/pokemon-4657023_1280.webp" alt="icono-pokemon" />
+        <img id="icono-pokemon" src={pokemonIcon} alt="icono-pokemon" />
 
         <select
           id="tipo-select"
@@ -197,7 +211,7 @@ const PokemonFetcher = () => {
               {tipoSeleccionado && (
                 <img
                 // seleccionar el icono de tipo de pokemon de la carpeta assets/tipos-pokemon
-                  src={`../assets/tipos-pokemon/Icon_${tiposEnEspanol[tipoSeleccionado]}.webp`}
+                  src={obtenerIconoTipo(tipoSeleccionado)}
                   alt={`icono tipo ${tiposEnEspanol[tipoSeleccionado]}`}
                   className="icono-tipo-titulo"
                   style={{ marginLeft: '10px', width: '2em', height: '2em', verticalAlign: 'middle' }}

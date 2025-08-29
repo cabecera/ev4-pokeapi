@@ -25,3 +25,5 @@ npm run dev    # Ejecutar localmente
 
 **Ademas sumamos VERCEL rápida**  
 Proyecto web desplegado en Vercel (con enlace: `carlos-pokemon.vercel.app`). Usa JavaScript (con Vite) y consume la PokeAPI para mostrar datos de Pokémon :contentReference[oaicite:8]{index=8}.
+
+<img width="1916" height="662" alt="image" src="https://github.com/user-attachments/assets/9543170f-6e93-49c0-a62e-df364aac12f8" />
